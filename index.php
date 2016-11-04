@@ -113,7 +113,7 @@ class RUR
 								
 								<td valign="top">
 									<h3>Email service providers</h3>
-									<i>Add email service providers you wish to ignore when registering, example <code>outlook.com</code> to ignore all registrations using an email address ending in <code>@outlook.com</code></i>
+									<i>Add email service providers from which you allow registering, example <code>outlook.com</code> to only accept registrations using an email address ending in <code>@outlook.com</code></i>
 								</td>
 								<td>
 									<strong>Email service providers domains:</strong>
@@ -185,7 +185,7 @@ class RUR
 
 		$return['err_username'] = $object->err_username !== '' ? $object->err_username : 'Sorry, you can\'t use this username.';
 		$return['err_email'] = $object->err_email !== '' ? $object->err_email : 'Sorry, you can\'t use this email.';
-		$return['err_service'] = $object->err_service !== '' ? $object->err_service : 'Sorry, you can\'t use this emails.';
+		$return['err_service'] = $object->err_service !== '' ? $object->err_service : 'Sorry, the domain of your email address is not on our whitelist.';
 
 		return $return;
 
@@ -207,7 +207,7 @@ class RUR
 		    
 		    }
 
-		    if ( in_array( substr( $user_email, strpos( $user_email, '@' ) + 1 ), $this->get()['services'] ) ) {
+		    if ( ! in_array( substr( $user_email, strpos( $user_email, '@' ) + 1 ), $this->get()['services'] ) ) {
 		        
 		        $errors->add( 'myexception_code', $this->get()['err_service'] );
 		    
